@@ -20,7 +20,7 @@ public class UserDto implements Serializable {
 
     private String password;
 
-    private Set<Pack> packSet = new HashSet<>();
+    private Set<PackDto> packDtoSet = new HashSet<>();
 
     public UserDto(User user) {
         if (user.getId() != null){

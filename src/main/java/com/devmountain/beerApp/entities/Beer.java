@@ -1,5 +1,6 @@
 package com.devmountain.beerApp.entities;
 
+import com.devmountain.beerApp.dtos.BeerDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,4 +35,16 @@ public class Beer {
             inverseJoinColumns = @JoinColumn(name = "pack_id")
     )
     private ArrayList<Pack> packArrayList = new ArrayList<Pack>();
+
+    public Beer(BeerDto beerDto){
+        if(beerDto.getName() != null){
+            this.name = beerDto.getName();
+        }
+        if(beerDto.getVariety() != null){
+            this.variety = beerDto.getVariety();
+        }
+        if(beerDto.getPrice() != null){
+            this.price = beerDto.getPrice();
+        }
+    }
 }
