@@ -1,5 +1,6 @@
 package com.devmountain.beerApp.entities;
 
+import com.devmountain.beerApp.dtos.PackDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -25,4 +26,6 @@ public class Pack {
 
     @ManyToMany(mappedBy = "packArrayList")
     private ArrayList<Beer> beerArrayList = new ArrayList<Beer>();
+
+    public Pack(PackDto packDto){}
 }
