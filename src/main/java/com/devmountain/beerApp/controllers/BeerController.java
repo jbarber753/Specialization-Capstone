@@ -13,10 +13,15 @@ public class BeerController {
     @Autowired
     private BeerService beerService;
 
-    @GetMapping("/beers")
+    @GetMapping("/getbeers")
     public List<BeerDto> getAllBeers(){return beerService.getAllBeers();}
 
     @PostMapping("/add")
     public List<String> addBeer(@RequestBody BeerDto beerDto){
         return beerService.addBeer(beerDto);}
+
+    @GetMapping("/getbeersbypack/{packId}")
+    public List<BeerDto> getBeersByPack(@PathVariable Long packId){
+        return beerService.getBeersByPack(packId);
+    }
 }

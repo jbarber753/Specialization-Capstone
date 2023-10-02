@@ -50,6 +50,8 @@ public class PackServiceImpl implements PackService {
             beerOptional.ifPresent(beer -> {
                 beer.getPackList().add(pack);
                 pack.getBeerList().add(beer);
+                beerRepository.saveAndFlush(beer);
+                packRepository.saveAndFlush(pack);
             });
             response.add("Beer added to pack!");
         });
@@ -61,9 +63,12 @@ public class PackServiceImpl implements PackService {
         Optional<Pack> packOptional = packRepository.findById(packId);
         Optional<Beer> beerOptional = beerRepository.findById(beerId);
         packOptional.ifPresent(pack -> {
-            List<Beer> beerArrayList = pack.getBeerList();
-            beerOptional.ifPresent(beerArrayList::remove);
-            pack.setBeerList(beerArrayList);
+            beerOptional.ifPresent(beer -> {
+                beer.getPackList().remove(pack);
+                pack.getBeerList().remove(beer);
+                beerRepository.saveAndFlush(beer);
+                packRepository.saveAndFlush(pack);
+            });
         });
     }
 

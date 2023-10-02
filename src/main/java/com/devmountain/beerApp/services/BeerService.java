@@ -10,4 +10,6 @@ public interface BeerService {
     List<String> addBeer(BeerDto beerDto);
 
     List<BeerDto> getAllBeers();
+
+    List<BeerDto> getBeersByPack(Long packId);
 }

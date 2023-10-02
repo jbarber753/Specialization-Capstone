@@ -1,5 +1,6 @@
 package com.devmountain.beerApp.controllers;
 
+import com.devmountain.beerApp.dtos.PackDto;
 import com.devmountain.beerApp.services.BeerService;
 import com.devmountain.beerApp.services.PackService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,10 @@ public class PackController {
     @DeleteMapping("/removebeer/{packId}/{beerId}")
     public void removeBeerFromPack(@PathVariable Long packId, @PathVariable Long beerId){
         packService.removeBeerFromPack(packId, beerId);
+    }
+
+    @GetMapping("/getpack/{userId}")
+    public List<PackDto> getPacksByUser(@PathVariable Long userId){
+        return packService.getPacksByUser(userId);
     }
 }
