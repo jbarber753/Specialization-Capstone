@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -16,7 +17,7 @@ public class PackDto implements Serializable {
 
     private UserDto userDto;
 
-    private ArrayList<BeerDto> beerDtoArrayList = new ArrayList<BeerDto>();
+    private List<BeerDto> beerDtoList = new ArrayList<BeerDto>();
 
     public PackDto(Pack pack){
         if (pack.getId() != null){

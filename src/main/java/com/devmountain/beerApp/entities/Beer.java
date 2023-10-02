@@ -34,7 +34,7 @@ public class Beer {
             joinColumns = @JoinColumn(name = "beer_id"),
             inverseJoinColumns = @JoinColumn(name = "pack_id")
     )
-    private List<Pack> packArrayList = new ArrayList<Pack>();
+    private List<Pack> packList = new ArrayList<Pack>();
 
     public Beer(BeerDto beerDto){
         if(beerDto.getName() != null){

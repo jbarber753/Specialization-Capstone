@@ -31,22 +31,29 @@ public class PackServiceImpl implements PackService {
 
     @Override
     @Transactional
-    public void addPack(PackDto packDto, Long userId) {
+    public List<String> addPack(Long userId) {
+        List<String> response = new ArrayList<>();
         Optional<User> userOptional = userRepository.findById(userId);
-        Pack pack = new Pack(packDto);
+        Pack pack = new Pack();
         userOptional.ifPresent(pack::setUser);
         packRepository.saveAndFlush(pack);
+        response.add("Pack created");
+        return response;
     }
 
     @Override
-    public void addBeerToPack(Long packId, Long beerId){
+    public List<String> addBeerToPack(Long packId, Long beerId){
+        List<String> response = new ArrayList<>();
         Optional<Pack> packOptional = packRepository.findById(packId);
         Optional<Beer> beerOptional = beerRepository.findById(beerId);
         packOptional.ifPresent(pack -> {
-            List<Beer> beerArrayList = pack.getBeerArrayList();
-            beerOptional.ifPresent(beerArrayList::add);
-            pack.setBeerArrayList(beerArrayList);
+            beerOptional.ifPresent(beer -> {
+                beer.getPackList().add(pack);
+                pack.getBeerList().add(beer);
+            });
+            response.add("Beer added to pack!");
         });
+        return response;
     }
 
     @Override
@@ -54,9 +61,9 @@ public class PackServiceImpl implements PackService {
         Optional<Pack> packOptional = packRepository.findById(packId);
         Optional<Beer> beerOptional = beerRepository.findById(beerId);
         packOptional.ifPresent(pack -> {
-            List<Beer> beerArrayList = pack.getBeerArrayList();
+            List<Beer> beerArrayList = pack.getBeerList();
             beerOptional.ifPresent(beerArrayList::remove);
-            pack.setBeerArrayList(beerArrayList);
+            pack.setBeerList(beerArrayList);
         });
     }
 

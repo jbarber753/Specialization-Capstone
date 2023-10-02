@@ -24,8 +24,8 @@ public class Pack {
     @JsonBackReference
     private User user;
 
-    @ManyToMany(mappedBy = "packArrayList")
-    private List<Beer> beerArrayList = new ArrayList<Beer>();
+    @ManyToMany(mappedBy = "packList")
+    private List<Beer> beerList = new ArrayList<Beer>();
 
     public Pack(PackDto packDto){}
 }

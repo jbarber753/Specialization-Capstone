@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface PackService {
     @Transactional
-    void addPack(PackDto packDto, Long userId);
+    List<String> addPack(Long userId);
 
-    void addBeerToPack(Long packId, Long beerId);
+    List<String> addBeerToPack(Long packId, Long beerId);
 
     void removeBeerFromPack(Long packId, Long beerId);
 

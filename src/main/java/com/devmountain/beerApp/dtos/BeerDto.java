@@ -21,7 +21,7 @@ public class BeerDto implements Serializable {
 
     private String price;
 
-    private List<PackDto> packDtoArrayList = new ArrayList<PackDto>();
+    private List<PackDto> packDtoList = new ArrayList<PackDto>();
 
     public BeerDto(Beer beer){
         if (beer.getId() != null){
