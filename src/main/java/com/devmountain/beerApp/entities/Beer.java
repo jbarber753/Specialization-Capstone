@@ -6,8 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "beers")
@@ -19,14 +19,14 @@ public class Beer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column
     private String name;
 
     @Column
     private String variety;
 
     @Column
-    private BigDecimal price;
+    private String price;
 
     @ManyToMany
     @JoinTable(
@@ -34,7 +34,7 @@ public class Beer {
             joinColumns = @JoinColumn(name = "beer_id"),
             inverseJoinColumns = @JoinColumn(name = "pack_id")
     )
-    private ArrayList<Pack> packArrayList = new ArrayList<Pack>();
+    private List<Pack> packArrayList = new ArrayList<Pack>();
 
     public Beer(BeerDto beerDto){
         if(beerDto.getName() != null){

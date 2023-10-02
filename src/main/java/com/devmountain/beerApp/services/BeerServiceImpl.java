@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BeerServiceImpl implements BeerService {
@@ -23,5 +24,11 @@ public class BeerServiceImpl implements BeerService {
         beerRepository.saveAndFlush(beer);
         response.add("Successfully added beer");
         return response;
+    }
+
+    @Override
+    public List<BeerDto> getAllBeers(){
+        List<Beer> beerList = beerRepository.findAll();
+        return beerList.stream().map(BeerDto::new).collect(Collectors.toList());
     }
 }

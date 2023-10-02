@@ -8,4 +8,6 @@ import java.util.List;
 public interface BeerService {
     @Transactional
     List<String> addBeer(BeerDto beerDto);
+
+    List<BeerDto> getAllBeers();
 }

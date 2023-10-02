@@ -2,13 +2,13 @@ package com.devmountain.beerApp.entities;
 
 import com.devmountain.beerApp.dtos.PackDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "packs")
@@ -25,7 +25,7 @@ public class Pack {
     private User user;
 
     @ManyToMany(mappedBy = "packArrayList")
-    private ArrayList<Beer> beerArrayList = new ArrayList<Beer>();
+    private List<Beer> beerArrayList = new ArrayList<Beer>();
 
     public Pack(PackDto packDto){}
 }

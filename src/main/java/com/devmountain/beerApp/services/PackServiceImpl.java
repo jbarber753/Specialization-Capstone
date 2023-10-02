@@ -43,7 +43,7 @@ public class PackServiceImpl implements PackService {
         Optional<Pack> packOptional = packRepository.findById(packId);
         Optional<Beer> beerOptional = beerRepository.findById(beerId);
         packOptional.ifPresent(pack -> {
-            ArrayList<Beer> beerArrayList = pack.getBeerArrayList();
+            List<Beer> beerArrayList = pack.getBeerArrayList();
             beerOptional.ifPresent(beerArrayList::add);
             pack.setBeerArrayList(beerArrayList);
         });
@@ -54,7 +54,7 @@ public class PackServiceImpl implements PackService {
         Optional<Pack> packOptional = packRepository.findById(packId);
         Optional<Beer> beerOptional = beerRepository.findById(beerId);
         packOptional.ifPresent(pack -> {
-            ArrayList<Beer> beerArrayList = pack.getBeerArrayList();
+            List<Beer> beerArrayList = pack.getBeerArrayList();
             beerOptional.ifPresent(beerArrayList::remove);
             pack.setBeerArrayList(beerArrayList);
         });
