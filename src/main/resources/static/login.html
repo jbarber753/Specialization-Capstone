@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./css/login.css">
+    <title>Beer App</title>
+</head>
+<body>
+    <header>Beer App
+        <nav>
+            <a href="home.html">Enter As Guest</a>
+        </nav>
+    </header>
+    <div id="login-form">
+        <span id="welcome1">Welcome to the Beer App</span>
+        <form>
+            <input id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <input type="submit" id="login-submit" value="Log in">
+        </form>
+        <span id="register-switch">New here? Register a new account</span>
+    </div>
+    <div id="register-form">
+        <span id="welcome2">Create a New Account Today!</span>
+        <form>
+<!--            <input id="email" placeholder="Email Address">-->
+            <input id="new-username" placeholder="Username">
+            <input type="password" id="new-password" placeholder="Password">
+            <input type="password" id="confirm-password" placeholder="Confirm Password">
+            <input type="submit" id="register-submit" value="Register">
+        </form>
+        <span id="login-switch">Already have an account? Log in</span>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./javascript/login.js"></script>
+</body>
+</html>
