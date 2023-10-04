@@ -9,6 +9,8 @@ const beerIcons = document.getElementsByClassName(`beer-icon`);
 const addButtons = document.getElementsByClassName(`cart`);
 const addButtonTexts = document.getElementsByClassName(`txt`);
 const cardsWrapper = document.getElementById(`cards-wrapper`);
+const orderThankYou = document.getElementById(`order-thank-you`);
+const orderSwitch = document.getElementById(`bottom-text`);
 
 const baseUrl = "http://localhost:8080/api/v1"
 let currentPack;
@@ -170,6 +172,8 @@ function handleOrder(){
             addButtons[i].addEventListener("click", handleClick);
         }
         document.getElementById("order-button").remove();
+        orderThankYou.style.display = `flex`;
+        cardsWrapper.style.display = `none`;
         checkAuth();
     })
 }
@@ -237,7 +241,13 @@ function populateBeers(){
     })
 }
 
+const handleSwitch = event => {
+    orderThankYou.style.display = `none`;
+    cardsWrapper.style.display = `flex`;
+}
+
 checkAuth();
 populateBeers();
 
+orderSwitch.addEventListener(`click`, handleSwitch)
 logoutButton.addEventListener(`click`, handleLogout)

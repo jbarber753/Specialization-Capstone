@@ -10,7 +10,7 @@ body{
 header{
     font-size: 48px;
     color: white;
-    background-color: #f5cc53;
+    background-color: #f28e1c;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -54,11 +54,11 @@ a:hover{
 
 #welcome1, #welcome2{
     font-size: 36px;
-    color: #f5cc53;
+    color: #f28e1c;
 }
 
 #slogan{
-    color: #f5cc53;
+    color: #f28e1c;
     font-style: italic;
 }
 
