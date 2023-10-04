@@ -9,7 +9,6 @@ body{
 
 header{
     font-size: 48px;
-    font-style: italic;
     color: white;
     background-color: #f5cc53;
     display: flex;
@@ -56,6 +55,11 @@ a:hover{
 #welcome1, #welcome2{
     font-size: 36px;
     color: #f5cc53;
+}
+
+#slogan{
+    color: #f5cc53;
+    font-style: italic;
 }
 
 #register-switch, #login-switch{

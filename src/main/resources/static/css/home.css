@@ -45,6 +45,17 @@ header{
     cursor: pointer;
 }
 
+.beer-icon:hover:after {
+    position: absolute;
+    content: attr(title);
+    display: inline-block;
+    left: 0px;
+    top: 0px;
+    padding: 5px;
+    background-color: black;
+    color: white;
+}
+
 nav{
     font-size: 24px;
     font-style: normal;

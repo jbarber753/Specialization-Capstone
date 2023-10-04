@@ -22,14 +22,15 @@ function renderPackDisplay(){
             let beerIcon = document.createElement("img");
             beerIcon.src = "https://static.vecteezy.com/system/resources/previews/024/864/595/non_2x/beer-glass-icon-free-png.png";
             beerIcon.classList.add("beer-icon");
-            beerIcon.setAttribute("beerId", res.data[i].id)
+            beerIcon.setAttribute("beerId", res.data[i].id);
+            beerIcon.setAttribute("title", res.data[i].name);
             beerIcon.addEventListener("click", handleRemove);
             packContainer.replaceChild(beerIcon ,beerSlots[0])
         }
     })
 }
 
-function increaseRenderDisplay(id){
+function increaseRenderDisplay(beer){
     axios.get(`${baseUrl}/beers/getbeersbypack/${currentPack}`)
     .then(res => {
         console.log("beers: ")
@@ -47,7 +48,8 @@ function increaseRenderDisplay(id){
         let beerIcon = document.createElement("img");
         beerIcon.src = "https://static.vecteezy.com/system/resources/previews/024/864/595/non_2x/beer-glass-icon-free-png.png";
         beerIcon.classList.add("beer-icon");
-        beerIcon.setAttribute("beerId", id)
+        beerIcon.setAttribute("beerId", beer.getAttribute("beerId"));
+        beerIcon.setAttribute("title", beer.getAttribute("beerName"));
         beerIcon.addEventListener("click", handleRemove);
         packContainer.replaceChild(beerIcon ,beerSlots[0])
     })
@@ -124,12 +126,13 @@ function handleLogout(){
 
 const handleClick = e => {
     e.preventDefault();
-    console.log(e.currentTarget.getAttribute("beerId"));
+    console.log(e.currentTarget);
+    let beer = e.currentTarget;
     let beerId = e.currentTarget.getAttribute("beerId");
     axios.post(`${baseUrl}/packs/addbeer/${currentPack}/${beerId}`)
     .then(() => {
         console.log("beer added")
-        increaseRenderDisplay(beerId);
+        increaseRenderDisplay(beer);
     })
 }
 
@@ -193,6 +196,7 @@ function populateBeers(){
                 let cart = document.createElement("a");
                 cart.classList.add("cart");
                 cart.setAttribute("beerId", res.data[i].id);
+                cart.setAttribute("beerName", res.data[i].name);
                 cart.addEventListener("click", handleClick);
                 boxDown.appendChild(cart);
                 let price = document.createElement("span");
