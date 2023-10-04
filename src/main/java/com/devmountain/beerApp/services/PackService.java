@@ -14,4 +14,6 @@ public interface PackService {
     void removeBeerFromPack(Long packId, Long beerId);
 
     List<PackDto> getPacksByUser(Long userId);
+
+    void orderPack(Long packId);
 }

@@ -81,4 +81,13 @@ public class PackServiceImpl implements PackService {
         }
         return Collections.emptyList();
     }
+
+    @Override
+    public void orderPack(Long packId){
+        Optional<Pack> packOptional = packRepository.findById(packId);
+        packOptional.ifPresent(pack -> {
+            pack.setActive("false");
+            packRepository.saveAndFlush(pack);
+        });
+    }
 }

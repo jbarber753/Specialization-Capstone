@@ -15,7 +15,7 @@ import java.util.List;
 public class PackDto implements Serializable {
     private Long id;
 
-    private boolean isActive = true;
+    private String active = "true";
 
     private UserDto userDto;
 
@@ -24,6 +24,9 @@ public class PackDto implements Serializable {
     public PackDto(Pack pack){
         if (pack.getId() != null){
             this.id = pack.getId();
+        }
+        if (pack.getActive() != null){
+            this.active = pack.getActive();
         }
     }
 }

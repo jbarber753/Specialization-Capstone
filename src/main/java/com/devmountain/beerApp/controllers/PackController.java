@@ -36,4 +36,7 @@ public class PackController {
     public List<PackDto> getPacksByUser(@PathVariable Long userId){
         return packService.getPacksByUser(userId);
     }
+
+    @PutMapping("/orderpack/{packId}")
+    public void orderPack(@PathVariable Long packId){packService.orderPack(packId);}
 }

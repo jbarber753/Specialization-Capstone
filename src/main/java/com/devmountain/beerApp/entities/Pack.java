@@ -21,7 +21,7 @@ public class Pack {
     private Long id;
 
     @Column
-    private boolean isActive = true;
+    private String active = "true";
 
     @ManyToOne
     @JsonBackReference
@@ -30,5 +30,9 @@ public class Pack {
     @ManyToMany(mappedBy = "packList")
     private List<Beer> beerList = new ArrayList<Beer>();
 
-    public Pack(PackDto packDto){}
+    public Pack(PackDto packDto){
+        if (packDto.getActive() != null){
+            this.active = packDto.getActive();
+        }
+    }
 }
