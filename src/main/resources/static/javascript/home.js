@@ -5,6 +5,8 @@ const logoutButton = document.getElementById(`logout-nav`);
 const profileButton = document.getElementById(`profile-nav`);
 const packContainer = document.getElementById(`pack-container`);
 const beerSlots = document.getElementsByClassName(`beer-slot`);
+const addButtons = document.getElementsByClassName(`cart`);
+const addButtonTexts = document.getElementsByClassName(`txt`);
 const cardsWrapper = document.getElementById(`cards-wrapper`);
 
 const baseUrl = "http://localhost:8080/api/v1"
@@ -20,21 +22,57 @@ function renderPackDisplay(){
             let beerIcon = document.createElement("img");
             beerIcon.src = "https://static.vecteezy.com/system/resources/previews/024/864/595/non_2x/beer-glass-icon-free-png.png";
             beerIcon.classList.add("beer-icon");
+            beerIcon.setAttribute("beerId", res.data[i].id)
+            beerIcon.addEventListener("click", handleRemove);
             packContainer.replaceChild(beerIcon ,beerSlots[0])
         }
     })
 }
 
-function updateRenderDisplay(){
+function increaseRenderDisplay(id){
     axios.get(`${baseUrl}/beers/getbeersbypack/${currentPack}`)
     .then(res => {
         console.log("beers: ")
         console.log(res.data)
         console.log(beerSlots)
+        console.log("add buttons: ")
+        console.log(addButtons)
+        console.log(addButtonTexts)
+        if (res.data.length > 5){
+            for (let i = 0; i < addButtons.length; i++){
+                addButtonTexts[i].textContent = "Pack is currently full!";
+                addButtons[i].removeEventListener("click", handleClick);
+            }
+        }
         let beerIcon = document.createElement("img");
         beerIcon.src = "https://static.vecteezy.com/system/resources/previews/024/864/595/non_2x/beer-glass-icon-free-png.png";
         beerIcon.classList.add("beer-icon");
+        beerIcon.setAttribute("beerId", id)
+        beerIcon.addEventListener("click", handleRemove);
         packContainer.replaceChild(beerIcon ,beerSlots[0])
+    })
+}
+
+function decreaseRenderDisplay(beer){
+    console.log("beer to remove:")
+    console.log(beer)
+    axios.get(`${baseUrl}/beers/getbeersbypack/${currentPack}`)
+    .then(res => {
+        console.log("beers: ")
+        console.log(res.data)
+        console.log(beerSlots)
+        console.log("add buttons: ")
+        console.log(addButtons)
+        console.log(addButtonTexts)
+        if (addButtonTexts[0].textContent === "Pack is currently full!"){
+            for (let i = 0; i < addButtons.length; i++){
+                addButtonTexts[i].textContent = "Add to pack";
+                addButtons[i].addEventListener("click", handleClick);
+            }
+        }
+        let beerSlot = document.createElement("span");
+        beerSlot.classList.add("beer-slot");
+        packContainer.replaceChild(beerSlot, beer)
     })
 }
 
@@ -91,8 +129,23 @@ const handleClick = e => {
     axios.post(`${baseUrl}/packs/addbeer/${currentPack}/${beerId}`)
     .then(() => {
         console.log("beer added")
-        updateRenderDisplay();
+        increaseRenderDisplay(beerId);
     })
+}
+
+const handleRemove = e => {
+    console.log(e.currentTarget.getAttribute("beerId"))
+    let beerId = e.currentTarget.getAttribute("beerId");
+    let beerIcon = e.currentTarget;
+    console.log("beerIcon here:")
+    console.log(beerIcon);
+    axios.delete(`${baseUrl}/packs/removebeer/${currentPack}/${beerId}`)
+        .then(() => {
+            console.log("beer removed")
+            console.log("beerIcon there:")
+            console.log(beerIcon)
+            decreaseRenderDisplay(beerIcon);
+        })
 }
 
 function populateBeers(){

@@ -30,7 +30,7 @@ header{
 .beer-slot{
     height: 25px;
     width: 25px;
-    background-color: #bbb;
+    background-color: #694229;
     border-radius: 50%;
     display: inline-block;
     margin: 0 10px;
@@ -39,6 +39,10 @@ header{
 .beer-icon{
     width: 25px;
     margin: 0 10px;
+}
+
+.beer-icon:hover{
+    cursor: pointer;
 }
 
 nav{
