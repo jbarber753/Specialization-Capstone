@@ -23,7 +23,7 @@ public class Beer {
     private String name;
 
     @Column
-    private String variety;
+    private String image;
 
     @Column
     private String price;
@@ -40,8 +40,8 @@ public class Beer {
         if(beerDto.getName() != null){
             this.name = beerDto.getName();
         }
-        if(beerDto.getVariety() != null){
-            this.variety = beerDto.getVariety();
+        if(beerDto.getImage() != null){
+            this.image = beerDto.getImage();
         }
         if(beerDto.getPrice() != null){
             this.price = beerDto.getPrice();

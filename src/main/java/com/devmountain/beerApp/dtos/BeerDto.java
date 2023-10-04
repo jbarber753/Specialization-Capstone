@@ -17,7 +17,7 @@ public class BeerDto implements Serializable {
 
     private String name;
 
-    private String variety;
+    private String image;
 
     private String price;
 
@@ -30,8 +30,8 @@ public class BeerDto implements Serializable {
         if (beer.getName() != null){
             this.name = beer.getName();
         }
-        if (beer.getVariety() != null){
-            this.variety = beer.getVariety();
+        if (beer.getImage() != null){
+            this.image = beer.getImage();
         }
         if (beer.getPrice() != null){
             this.price = beer.getPrice();
