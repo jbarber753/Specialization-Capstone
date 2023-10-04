@@ -32,7 +32,7 @@ public class PackController {
         packService.removeBeerFromPack(packId, beerId);
     }
 
-    @GetMapping("/getpack/{userId}")
+    @GetMapping("/getpacks/{userId}")
     public List<PackDto> getPacksByUser(@PathVariable Long userId){
         return packService.getPacksByUser(userId);
     }

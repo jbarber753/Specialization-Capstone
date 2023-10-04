@@ -20,6 +20,9 @@ public class Pack {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
+    private boolean isActive = true;
+
     @ManyToOne
     @JsonBackReference
     private User user;

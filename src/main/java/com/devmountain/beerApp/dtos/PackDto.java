@@ -15,6 +15,8 @@ import java.util.List;
 public class PackDto implements Serializable {
     private Long id;
 
+    private boolean isActive = true;
+
     private UserDto userDto;
 
     private List<BeerDto> beerDtoList = new ArrayList<BeerDto>();

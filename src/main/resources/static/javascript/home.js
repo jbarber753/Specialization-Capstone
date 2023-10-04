@@ -3,7 +3,40 @@ const userId = cookieArr[1];
 const loginButton = document.getElementById(`login-nav`);
 const logoutButton = document.getElementById(`logout-nav`);
 const profileButton = document.getElementById(`profile-nav`);
+const packContainer = document.getElementById(`pack-container`);
+const beerSlots = document.getElementsByClassName(`beer-slot`);
 const cardsWrapper = document.getElementById(`cards-wrapper`);
+
+const baseUrl = "http://localhost:8080/api/v1"
+let currentPack;
+
+function renderPackDisplay(){
+    axios.get(`${baseUrl}/beers/getbeersbypack/${currentPack}`)
+    .then(res => {
+        console.log("beers: ")
+        console.log(res.data)
+        console.log(beerSlots)
+        for (let i = 0; i < res.data.length; i++){
+            let beerIcon = document.createElement("img");
+            beerIcon.src = "https://static.vecteezy.com/system/resources/previews/024/864/595/non_2x/beer-glass-icon-free-png.png";
+            beerIcon.classList.add("beer-icon");
+            packContainer.replaceChild(beerIcon ,beerSlots[0])
+        }
+    })
+}
+
+function updateRenderDisplay(){
+    axios.get(`${baseUrl}/beers/getbeersbypack/${currentPack}`)
+    .then(res => {
+        console.log("beers: ")
+        console.log(res.data)
+        console.log(beerSlots)
+        let beerIcon = document.createElement("img");
+        beerIcon.src = "https://static.vecteezy.com/system/resources/previews/024/864/595/non_2x/beer-glass-icon-free-png.png";
+        beerIcon.classList.add("beer-icon");
+        packContainer.replaceChild(beerIcon ,beerSlots[0])
+    })
+}
 
 const checkAuth = () => {
     if (!userId){
@@ -15,6 +48,31 @@ const checkAuth = () => {
         loginButton.style.display = `none`;
         logoutButton.style.display = `inline`;
         profileButton.style.display = `inline`;
+        axios.get(`${baseUrl}/packs/getpacks/${userId}`)
+        .then(res => {
+            console.log(res.data)
+            if(!res.data.length){
+                axios.post(`${baseUrl}/packs/add/${userId}`)
+                .then(() => {
+                    axios.get(`${baseUrl}/packs/getpacks/${userId}`)
+                    .then(res2 => {
+                        console.log(res2)
+                        currentPack = res2.data[0].id;
+                        console.log("first currentPack: " + currentPack)
+                        renderPackDisplay();
+                    })
+                })
+            }
+            else{
+                for (let i = 0; i < res.data.length; i++){
+                    if(res.data[i].active){
+                        currentPack = res.data[i].id;
+                        console.log("existing currentPack: " + currentPack)
+                        renderPackDisplay();
+                    }
+                }
+            }
+        })
     }
 }
 
@@ -26,10 +84,20 @@ function handleLogout(){
     window.location.href = `./login.html`;
 }
 
+const handleClick = e => {
+    e.preventDefault();
+    console.log(e.currentTarget.getAttribute("beerId"));
+    let beerId = e.currentTarget.getAttribute("beerId");
+    axios.post(`${baseUrl}/packs/addbeer/${currentPack}/${beerId}`)
+    .then(() => {
+        console.log("beer added")
+        updateRenderDisplay();
+    })
+}
+
 function populateBeers(){
-    axios.get('http://localhost:8080/api/v1/beers/getbeers')
+    axios.get(`${baseUrl}/beers/getbeers`)
     .then(res => {
-        console.log(res.data)
         for (let i = 0; i < res.data.length; i++){
                 let containerPageWrapper = document.createElement("div");
                 cardsWrapper.appendChild(containerPageWrapper);
@@ -71,6 +139,8 @@ function populateBeers(){
                 hBg.appendChild(hBgInner);
                 let cart = document.createElement("a");
                 cart.classList.add("cart");
+                cart.setAttribute("beerId", res.data[i].id);
+                cart.addEventListener("click", handleClick);
                 boxDown.appendChild(cart);
                 let price = document.createElement("span");
                 price.classList.add("price");
